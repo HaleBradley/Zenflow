@@ -1,0 +1,8 @@
+.anc{
+    text-decoration: none;
+    text-shadow: none;
+}
+
+.anc:hover{
+    color: black;
+}

@@ -1,0 +1,13 @@
+{% load static %}
+{% include 'includes/header.html' %}
+
+<div class="container-fluid w-75 fs-5">
+    <h1>Create Link</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+  </form>
+</div>
+
+{% include 'includes/footer.html' %}

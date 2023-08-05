@@ -1,0 +1,24 @@
+.calendar {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .calendar td, .calendar th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .calendar th {
+    background-color: #eee;
+  }
+  
+  .calendar td {
+    background-color: #fff;
+  }
+  
+  .calendar td:hover {
+    background-color: #f2f2f2;
+  }
+  

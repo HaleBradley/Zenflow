@@ -1,0 +1,58 @@
+{% load static %}
+{% include 'includes/header.html' %}
+
+<html lang="en">
+<head>
+    <title>ZenFlow</title>
+</head>
+<body>
+    {% if not request.session.employee_id %}
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <nav class="navbar nav-head border border-dark border-2 shadow">
+            <div class="container-fluid">
+                <div class="col-3">
+                    Already a member? Log in here!
+                </div>
+                <div class="col-9">
+                    <label>Username <input type="text" id="email" name="email" required></label>
+                    <label>Password <input type="password" id="password" name="password" required></label>
+                    &nbsp;&nbsp;
+                    <button class="btn btn-dark">Log In</button>
+                    &nbsp;&nbsp;
+                    <span class="text-danger">
+                        {{ request.session.invalid_email_error }}
+                        {{ request.session.invalid_password_error }}
+                    </span>
+                </div>
+            </div>
+        </nav>
+    </form>
+    {% endif %}
+    <div class="container-fluid">
+        <div class="row">
+            <br><br>
+            <div class="col-6">
+                <br><br><br><br>
+                <div>
+                    <img src="{% static 'images/workflowmain.jpg' %}" class="img-fluid" alt="example workflow">
+                </div>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-5 text-center">
+                <br><br><br><br>
+                <h3>What is ZenFlow</h3>
+                <p class="text-start">This professional web application provides tools for an enterprise to assign and carry out workflows. Administrators can manage user 
+                    groups and create a hierarchy of user management among the users in which each user has their own login. Managers can assign and create 
+                    workflows for their teams. Workflows are created using templates and can be modified at any point of the workflow’s life cycle. 
+                    Users can add notes and progress updates to the workflows to provide constant updates to the project. Upon completion of a workflow, 
+                    they are stored as a completed workflow which can be accessed in the workflow history section. Users can easily view their workflow 
+                    due dates by using the deadline calendar. Want to make your work more efficient?</p>
+                <a href="{% url 'signup' %}"><button class="btn btn-dark">Sign Up</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% include 'includes/footer.html' %}

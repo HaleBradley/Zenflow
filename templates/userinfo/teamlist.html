@@ -1,0 +1,85 @@
+{% include 'includes/header.html' %}
+{% load static %}
+
+<div class="container">
+    <h2>Teams</h2>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <th>Team Name</th>
+            <th>Team Code</th>
+            <th>Members</th>
+            {% comment %} <th>Manager</th> {% endcomment %}
+            <th>Current Workflows</th>
+            <th class="text-center">Modify</th>
+        </thead>
+        {% for t in team %}
+        <tr>
+            <td>{{t.name}}</td>
+            <td>{{t.team_id}}</td>
+            <td>
+                {% for emp in t.employees.all%}
+                {{emp.first_name}} {{emp.last_name}};
+                    {% comment %} {% if emp.is_manager %}
+                        No Employees
+                    {% else %}
+                        {{emp.first_name}} {{emp.last_name}};
+                    {% endif %} {% endcomment %}
+                    {% empty%}
+                    No Employees
+                {% endfor %}
+            </td>
+            {% comment %} <td>
+                {% for emp in t.employees.all%}
+                    {% if emp.is_manager %}
+                        {{emp.first_name}} {{emp.last_name}}
+                    {% else %}
+                        No Managers
+                    {% endif %}
+                    {% empty%}
+                    No Managers
+                {% endfor %}
+            </td> {% endcomment %}
+            <td>
+                {% for work in t.workflows.all%}
+                    {{work.name}};
+                {% empty %}
+                No Workflows
+                {% endfor %}
+            </td>
+            {% if request.session.is_manager %}
+            <td class="text-center">
+                <a class="btn btn-outline-warning" href="{% url 'editteam' t.pk%}">Edit</a>
+                <a class="btn btn-outline-danger" href="{% url 'delete_team' team_id=t.team_id %}">Delete</a>
+            </td>
+            {% else %}
+            <td>Only managers can edit and delete teams</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% if request.session.is_manager %}
+    <p class="text-center"><a class="btn btn-outline-info" href="{% url 'teamcreate' %}">Create</a></p>
+    {% else %}
+    <p class="text-center">Only managers can create teams</p>
+    {% endif %}
+</div>
+
+{% comment %} <script>
+    function deleteTeam(teamId) {
+        if (confirm('Are you sure you want to delete this team?')) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/delete-team/' + teamId + '/');
+            xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    location.reload();
+                } else {
+                    alert('An error occurred while deleting the team.');
+                }
+            };
+            xhr.send();
+        }
+    }
+</script> {% endcomment %}
+
+{% include 'includes/footer.html' %}

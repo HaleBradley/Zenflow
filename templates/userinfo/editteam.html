@@ -1,0 +1,13 @@
+{% load static %}
+{% include 'includes/header.html' %}
+
+<h2>Edit Team</h2>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-outline-dark my-3" type="submit">Save Changes</button>
+    </form>
+</div>
+
+{% include 'includes/footer.html' %}

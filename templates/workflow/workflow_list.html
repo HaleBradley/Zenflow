@@ -1,0 +1,33 @@
+{% load static %}
+{% include 'includes/header.html' %}
+
+<head>
+    <link href="{% static 'css/workflow.css' %}" rel="stylesheet">
+</head>
+<div class="container">
+    <h2>Workflows</h2>
+    <table class="table table-hover">
+       {% for w in work %}
+       {% if not w.date_completed %}
+       <tr>
+        <td><a class="btn btn-outline-info anc" href="{% url 'workflowsave' w.pk%}">{{w.name}}</a></td>
+        <td>{{w.description}}</td>
+        <td>{{w.date_started}}</td>
+        {% if request.session.is_manager %}
+        <td><a class="btn btn-outline-warning anc" href="{% url 'editworkflow' w.pk%}">Edit</a></td>
+        <td><a class="btn btn-outline-danger" href="{% url 'deletework' pk=w.pk %}">Delete</a></td>
+        {% else %}
+        <td>Only a manager can edit and delete workflows</td>
+        {% endif %}
+       </tr>
+        {% endif %}
+       {% endfor %}
+    </table>
+    {% if request.session.is_manager %}
+    <p><a class="btn btn-outline-info anc" href="{% url 'createworkflow' %}">Create</a></p>
+    {% else %}
+    <p>Only a manager can create a workflow</p>
+    {% endif %}
+</div>
+
+{% include 'includes/footer.html' %}

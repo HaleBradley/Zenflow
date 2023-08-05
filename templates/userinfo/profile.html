@@ -1,0 +1,93 @@
+{% include 'includes/header.html' %}
+{% load static %}
+
+<head>
+    <title>Profile</title>
+</head>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-4">
+        <h2>Profile</h2>
+        <br>
+        <div class="container-fliud">
+            <label><strong>Profile Picture</strong></label>
+            <br>
+            <img class="picture" alt="profile picture" src="{{ request.session.profile_picture }}">
+            <br>
+            <label><strong>First Name</strong><br>{{ request.session.first_name }}</label>
+            <br>
+            <label><strong>Last Name</strong><br>{{ request.session.last_name }}</label>
+            <br>
+            <label><strong>Email</strong><br>{{ request.session.email }}</label>
+            <br>
+            <label><strong>Phone Number</strong><br>{{ request.session.phone_number }}</label>
+            <br>
+            <label><strong>Birth Date</strong><br>{{ request.session.birth_date }}</label>
+            <br>
+            <label><strong>Team Code</strong><br>{{ request.session.team_id }}</label>
+            <br>
+            <br>
+            <form action="{% url 'editaccount' %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-dark">Edit Profile</button>
+            </form>
+            <br>
+            <form action="{% url 'deleteaccount' %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-danger">Delete Account</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-4">
+        {% if request.session.edit_account %}
+        <form action="{% url 'editprofile' %}" method="post">
+            {% csrf_token %}
+            <h2>Edit Profile</h2>
+            <br>
+            <div class="container-fliud">
+                <label><strong>Profile Picture</strong><br></label>
+                <br>
+                <br>
+                <label><input type="radio" id="profile_picture" name="profile_picture" value="/static/images/Bubbles.jpg"> <img class="profile-picture" alt="profile picture" src="/static/images/Bubbles.jpg"></label>
+                <label><input type="radio" id="profile_picture" name="profile_picture" value="/static/images/download.jfif"> <img class="profile-picture" alt="profile picture" src="/static/images/download.jfif"></label>
+                <label><input type="radio" id="profile_picture" name="profile_picture" value="/static/images/EbYHTf6UYAImUqP.jpg"> <img class="profile-picture" alt="profile picture" src="/static/images/EbYHTf6UYAImUqP.jpg"></label>
+                <label><input type="radio" id="profile_picture" name="profile_picture" value="/static/images/xbox-360-gamer-pictures-1000-x-1000-3ip30n461zgitjq2.jpg"> <img class="profile-picture" alt="profile picture" src="/static/images/xbox-360-gamer-pictures-1000-x-1000-3ip30n461zgitjq2.jpg"></label>
+                <label><input type="radio" id="profile_picture" name="profile_picture" value="/static/images/LBOZu01X_400x400.jpg"> <img class="profile-picture" alt="profile picture" src="/static/images/LBOZu01X_400x400.jpg"></label>
+                <label><input type="radio" id="profile_picture" name="profile_picture" value="/static/images/hyq77h0l4fp51.png"> <img class="profile-picture" alt="profile picture" src="/static/images/hyq77h0l4fp51.png"></label>
+                <label><input type="radio" id="profile_picture" name="profile_picture" value="/static/images/pr3ouy059di51.jpg"> <img class="profile-picture" alt="profile picture" src="/static/images/pr3ouy059di51.jpg"></label>
+                <label><input type="radio" id="profile_picture" name="profile_picture" value="/static/images/workflowmain.jpg"> <img class="profile-picture" alt="profile picture" src="/static/images/workflowmain.jpg"></label>
+                <label><input type="radio" id="profile_picture" name="profile_picture" value="/static/images/default.jpg"> <img class="profile-picture" alt="profile picture" src="/static/images/default.jpg"></label>
+                <br>
+                <br>
+                <label><strong>First Name</strong><br><input type="text" id="first_name" name="first_name" maxlength="50" value="{{ request.session.first_name }}"></label>
+                <br>
+                <label><strong>Last Name</strong><br><input type="text" id="last_name" name="last_name" maxlength="50" value="{{ request.session.last_name }}"></label>
+                <br>
+                <label><strong>Birth Date</strong><br><input type="date" id="birth_date" name="birth_date" value="{{ request.session.birth_date }}"></label>
+                <br>
+                <label><strong>Phone Number</strong><br><input type="text" id="phone_number" name="phone_number" maxlength="12" value="{{ request.session.phone_number }}"></label>
+                <br>
+                <label><strong>New Password</strong><br><input type="password" id="password" name="password" value=""></label>
+                <br>
+                <label><strong>Confirm Password</strong><br><input type="password" id="confirm_password" name="confirm_password" value=""></label>
+                <br>
+                <label><strong>Team Code</strong><br><input type="number" id="team_id" name="team_id" value="{{ request.session.team_id }}"></label>
+                <br>
+                <p class="text-center text-danger">{{ request.session.edit_errors }}</button></p>
+                <br>
+                <button class="btn btn-dark">Save Changes</button>
+            </div>
+        </form>
+        <form action="{% url 'canceledit' %}" method="post">
+            {% csrf_token %}
+            <br>
+            <button class="btn btn-dark">Cancel Changes</button>
+        </form>
+        {% endif %}
+    </div>
+    <div class="col-2"></div>
+</div>
+
+
+
+{% include 'includes/footer.html' %}

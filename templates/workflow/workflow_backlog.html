@@ -1,0 +1,28 @@
+{% load static %}
+{% include 'includes/header.html' %}
+
+<div class="container">
+    <h2>Workflow Backlog</h2>
+    <table class="table">
+        <thead>
+            <th>Workflow</th>
+            <th>Description</th>
+            <th>Date Started</th>
+            <th>Date Completed</th>
+            <th>Team</th>
+        </thead>
+        {% for work in workflow %}
+        {% if work.date_completed %}
+        <tr>
+            <td>{{work.name}}</td>
+            <td>{{work.description}} </td>
+            <td>{{work.date_started}} </td>
+            <td>{{work.date_completed}} </td>
+            <td>{{work.team_id}}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+</div>
+
+{% include 'includes/footer.html' %}
